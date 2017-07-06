@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- css -->
+    <style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+        outline: none;
+        border-radius: 0;
+    }
+    
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        background-color: #ebebeb;
+    }
+    
+    #toolbar {
+        height: 50px;
+        background-color: #444;
+        width: 100%;
+        color: #fff;
+        line-height: 50px;
+    }
+    #toolbar img {
+    	width: 40px;
+    	height: 40px;
+    	margin-left: 15px;
+    	vertical-align: middle;
+    }
+    #name{
+    	font-weight: bold;
+    	letter-spacing: 2px;
+    	font-size: 18px;
+    }
+    #panel-editor {
+        width: 100%;
+        height: 100%;
+        resize: none;
+        border: none;
+        border-right: 1px solid #ccc;
+        background: #f6f6f6;
+        font-family: 'Monaco', 'courier', 'monospace';
+        overflow: auto;
+        font-size: 16px;
+    }
+    
+    #container {
+        overflow: auto;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: 50px;
+    }
+    
+    #editor-column,
+    #preview-column {
+        width: 49.5%;
+        height: 100%;
+        overflow: auto;
+        position: relative;
+        background-color: #fff;
+    }
+    
+    .pull-left {
+        float: left;
+    }
+    
+    .pull-right {
+        float: right;
+    }
+    </style>
+    <!-- 引入 remarkable 库 -->
+    <script src="http://cdn.bootcss.com/remarkable/1.7.1/remarkable.min.js"></script>
+    <title>WuMk</title>
+</head>
+
+<body>
+    <div id="toolbar">
+    	<img src="1.ico">
+    	<span id="name">WuMk</span>
+    </div>
+    <div id="container">
+        <div id="editor-column" class="pull-left">
+            <textarea id="panel-editor" placeholder="# 支持标准 markdown 语法"></textarea>
+        </div>
+        <div id="preview-column" class="pull-right">
+            <div id="panel-preview">
+            </div>
+        </div>
+    </div>
+    <script>
+    const e = (sel) => document.querySelector(sel)
+    var md = new Remarkable()
+    e('#panel-editor').addEventListener('keyup', function(event) {
+        var src = event.target.value
+        var content = md.render(src)
+        e('#panel-preview').innerHTML = content
+    })
+    </script>
+</body>
+
+</html>
